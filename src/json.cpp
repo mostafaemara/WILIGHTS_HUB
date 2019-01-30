@@ -1,81 +1,92 @@
 #include "json.h"
 
+String json_creat_node_info_messege(String state)
+{
+  JSON_INFO("\n JSON: CREATING NODE INFO MESSEGE \n");
+  DynamicJsonBuffer jsonBuffer(JSON_BUFFER_SIZE);
+  JsonObject &root = jsonBuffer.createObject();
+  String json;
+  unsigned char r1 = get_relay_state(RELAY_1);
+  unsigned char r2 = get_relay_state(RELAY_2);
+  unsigned char r3 = get_relay_state(RELAY_3);
+  unsigned char r4 = get_relay_state(RELAY_4);
+  root[JSON_KEY_MESSEGE_ID] = MESSEGE_ID_NODE_INFO;
+  root[JSON_KEY_NODE_ID] = ESP.getChipId();
+  root[JSON_KEY_NODE_STATE] = state;
+  root[JSON_KEY_RELAY_NUMBER_1] = r1;
+  root[JSON_KEY_RELAY_NUMBER_2] = r2;
+  root[JSON_KEY_RELAY_NUMBER_3] = r3;
+  root[JSON_KEY_RELAY_NUMBER_4] = r4;
 
-
-
-String json_creat_node_info_messege(String state){
-DynamicJsonBuffer  jsonBuffer(5000);
-JsonObject& root = jsonBuffer.createObject();
-String json;
-root["messegeid"]=500;
- root["nodeid"]=ESP.getChipId();
- root["nodestate"]=state;
-  root["relay1"]=2;
-  root["relay2"]=2;
-  root["relay3"]=2;
-  root["relay4"]=2;
-  
   root.prettyPrintTo(json);
+  JSON_INFO("\n JSON: CREATING NODE INFO MESSEGE DONE\n JSON = %s\n", json.c_str());
   jsonBuffer.clear();
- 
+
   return json;
-
 }
-int json_extract_messege_id(String json){
-  DynamicJsonBuffer  jsonBuffer(5000);
+int json_extract_messege_id(String json)
+{
+  DynamicJsonBuffer jsonBuffer(JSON_BUFFER_SIZE);
+  JSON_INFO("\n JSON: START EXTRACTING MESSEGE ID FROM \n JSON = %s \n", json.c_str());
 
-JsonObject& root = jsonBuffer.parseObject(json);
-Serial.printf(" \n JSON STRING %s",json.c_str());
-jsonBuffer.clear();
-if (root.success()) {
-   
-int messegeid=root["messegeid"];
+  JsonObject &root = jsonBuffer.parseObject(json);
 
+  jsonBuffer.clear();
+  if (root.success())
+  {
 
+    int messegeid = root[JSON_KEY_MESSEGE_ID];
+
+    JSON_INFO("\n JSON: EXTRACTING MESSEGE ID SUCCES \n MESSEGE ID =%d \n", messegeid);
     return messegeid;
-  }else{
-
-      return -1;
   }
-
-
+  else
+  {
+    JSON_INFO("\n JSON: EXTRACTING MESSEGE ID FAILD\n");
+    return -1;
+  }
 }
-uint32_t json_extract_node_id(String json){
-  DynamicJsonBuffer  jsonBuffer(5000);
+uint32_t json_extract_node_id(String json)
+{
+  DynamicJsonBuffer jsonBuffer(JSON_BUFFER_SIZE);
 
-JsonObject& root = jsonBuffer.parseObject(json);
-Serial.printf(" \n JSON STRING %s",json.c_str());
-jsonBuffer.clear();
-if (root.success()) {
-   
-uint32_t nodeid=root["nodeid"];
+  JSON_INFO("\n JSON: START EXTRACTING NODE ID FROM \n JSON = %s \n", json.c_str());
+  JsonObject &root = jsonBuffer.parseObject(json);
 
+  jsonBuffer.clear();
+  if (root.success())
+  {
+
+    uint32_t nodeid = root[JSON_KEY_NODE_ID];
+    JSON_INFO("\n JSON: EXTRACTING NODE ID SUCCES \n NODE ID =%d \n", nodeid);
 
     return nodeid;
-  }else{
-
-      return -1;
   }
+  else
+  {
+    JSON_INFO("\n JSON: EXTRACTING NODE ID FAILD\n");
 
-
+    return -1;
+  }
 }
-void json_extract_node_cmd_messege(String json,int*relayno,int*cmd){
-DynamicJsonBuffer  jsonBuffer(5000);
- 
-JsonObject& root = jsonBuffer.parseObject(json);
-if (root.success()) {
-   
-*cmd=root["cmd"];
-*relayno=root["relayno"];
+void json_extract_node_cmd_messege(String json, int *relayno, int *cmd)
+{
+  DynamicJsonBuffer jsonBuffer(JSON_BUFFER_SIZE);
+  JSON_INFO("\n JSON: START EXTRACTING NODE COMMAND MESSGE FROM \n JSON = %s \n", json.c_str());
+  JsonObject &root = jsonBuffer.parseObject(json);
+  if (root.success())
+  {
 
-
+    *cmd = root[JSON_KEY_COMMAND];
+    *relayno = root[JSON_KEY_RELAY_NUMBER];
+    JSON_INFO("\n JSON: EXTRACTING NODE COMMAND MESSEGE SUCESS \n COMMAND = %d FOR RELAY Number = %d \n", *cmd, *relayno);
   }
-  else{
-
-*cmd=-1;
-*relayno=-1;
-
+  else
+  {
+    JSON_INFO("\n JSON: EXTRACTING NODE COMMAND MESSEGE FAILD \n");
+    *cmd = -1;
+    *relayno = -1;
   }
-jsonBuffer.clear();
-
+  JSON_INFO("\n JSON: EXTRACTING NODE COMMAND MESSEGE DONE CLEARING JSON BUFFER \n");
+  jsonBuffer.clear();
 }

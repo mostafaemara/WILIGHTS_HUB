@@ -1,6 +1,7 @@
 #include <EEPROM.h>
 #include<Arduino.h>
-#define EEPROM_DEBUG_ON
+#include"s_debug.h"
+
 #if defined(EEPROM_DEBUG_ON)
 #define EEPROM_INFO( format, ... ) Serial.printf( format, ## __VA_ARGS__ )
 #else
