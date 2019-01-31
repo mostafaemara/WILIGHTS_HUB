@@ -1,3 +1,7 @@
+
+#ifndef WL_EEPROM_H
+#define WL_EEPROM_H
+
 #include <EEPROM.h>
 #include<Arduino.h>
 #include"wl_debug.h"
@@ -12,3 +16,4 @@ String eeprom_read_ssid(void);
 String eeprom_read_password(void);
 void eeprom_write_ssid(String ssid);
 void eeprom_write_password(String password);
+#endif

@@ -1,3 +1,6 @@
+#ifndef WL_ESPTOUCH_H
+#define WL_ESPTOUCH_H
+
 #include <Arduino.h>
 #include "smartconfig.h"
 #include "user_interface.h"
@@ -16,3 +19,4 @@
 void esptouch_init(void);
 void esptouch_start(void);
 bool esptouch_done(void);
+#endif

@@ -1,5 +1,5 @@
-//#ifndef WL_MESH_H
-//#define WL_MESH_H
+#ifndef WL_MESH_H
+#define WL_MESH_H
 
 
 #include"painlessMesh.h"
@@ -15,4 +15,4 @@ void mesh_init(receivedCallback_t receivedCallback);
 void mesh_update(void);
 void mqtt_init(void);
 extern  painlessMesh mesh;
-//#endif
+#endif
