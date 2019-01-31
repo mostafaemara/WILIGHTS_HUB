@@ -1,8 +1,8 @@
 
-#include <painlessMesh.h>
-#include"relaystate.h"
-#include "utils.h"
-#include"s_debug.h"
+#include "painlessMesh.h"
+
+#include "wl_utils.h"
+#include"wl_debug.h"
 #define JSON_KEY_MESSEGE_ID "messegeid"
 #define JSON_KEY_NODE_ID "nodeid"
 #define JSON_KEY_NODE_STATE "nodestate"
@@ -20,7 +20,7 @@
 #define JSON_INFO( format, ... )
 #endif
 
-String json_creat_node_info_messege(String state);
+//String json_creat_node_info_messege(String state);
 int json_extract_messege_id(String json);
 void json_extract_node_cmd_messege(String json,int*relayno,int*cmd);
 uint32_t json_extract_node_id(String json);

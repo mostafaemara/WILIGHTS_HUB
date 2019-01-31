@@ -1,4 +1,4 @@
-#include "esptouch.h"
+#include "wl_esptouch.h"
 static bool esptouchdone = true;
 
 
@@ -59,6 +59,7 @@ void ICACHE_FLASH_ATTR smartconfig_done(sc_status status, void *pdata)
     }
 }
 void esptouch_init(void){
+       esptouchdone = true;
  pinMode(ESPTOUCH_INTR_PIN, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(ESPTOUCH_INTR_PIN), handler, CHANGE);
 

@@ -1,12 +1,12 @@
 #include"eeprom.h"
 #include <Arduino.h>
-#include <painlessMesh.h>
+#include "painlessMesh.h"
 #include "uMQTTBroker.h"
-#include "json.h"
-#include"esptouch.h"
+#include "wl_json.h"
+#include"wl_esptouch.h"
 #include <ESP8266mDNS.h>
 #include <ESP8266WiFi.h>
-#include "LiquidCrystal_I2C.h"
+
 #define   LED             2       // GPIO number of connected LED, ON ESP-12 IS GPIO2
 #define HOSTNAME "MQTT_Bridge"
 #define   STATION_SSID     "NightWings"
@@ -78,11 +78,13 @@ myMQTTBroker myBroker;
 
 
 void setup() {
- 
-  
- 
+    Serial.begin(115200);
+ esptouch_init();
+  char nodeid[32];
+ sprintf(nodeid,"%d",ESP.getChipId());
+ Serial.printf("\n NODE ID = %s",nodeid);
  pinMode(LED, OUTPUT);
-  Serial.begin(115200);
+
  
  
   
@@ -101,11 +103,11 @@ void setup() {
 
 mesh.setDebugMsgTypes(ERROR | DEBUG | CONNECTION);  // set before init() so that you can see startup messages
 
-  mesh.init(MESH_SSID, MESH_PASSWORD, MESH_PORT,WIFI_AP_STA,6);
+  mesh.init(nodeid,nodeid, MESH_PORT,WIFI_AP_STA,6);
   mesh.onReceive(&receivedCallback);
 
  
-mesh.stationManual(STATION_SSID, STATION_PASSWORD);
+mesh.stationManual(ssid.c_str(),pwd.c_str());
 mesh.setRoot(true);
  
 
