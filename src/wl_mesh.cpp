@@ -3,7 +3,7 @@
 
 
 
-
+SimpleList<uint32_t> nodes;
 
 String getNodeIdAsString(void){
 
@@ -16,6 +16,8 @@ String getNodeIdAsString(void){
 }
 void mesh_init(receivedCallback_t receivedCallback)
 {
+   pinMode(LED, OUTPUT);
+   digitalWrite(LED,HIGH);
   String nodeid;
   nodeid=getNodeIdAsString();
   Serial.printf(nodeid.c_str());
@@ -37,5 +39,17 @@ void mesh_update(void)
   if (esptouch_done())
   {
     mesh.update();
+         nodes=mesh.getNodeList();
+
+if(nodes.size()!=0){
+
+digitalWrite(LED,LOW);
+
+}else{
+
+
+digitalWrite(LED,HIGH);
+
+}
   }
 }

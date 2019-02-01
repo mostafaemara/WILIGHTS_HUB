@@ -1,3 +1,6 @@
 #define JSON_DEBUG_ON
 #define ESPTOUCH_DEBUG_ON
 #define EEPROM_DEBUG_ON
+#define MQTT_DEBUG_ON
+#define MDNS_DEBUG_ON
+#define CONN_HANDLER_DEBUG_ON

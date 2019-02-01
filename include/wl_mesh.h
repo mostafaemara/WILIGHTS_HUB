@@ -1,7 +1,7 @@
 #ifndef WL_MESH_H
 #define WL_MESH_H
 
-
+#define LED 2
 #include"painlessMesh.h"
 #include"uMQTTBroker.h"
 #include"wl_eeprom.h"
