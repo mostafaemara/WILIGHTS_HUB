@@ -9,6 +9,7 @@
 #include "wl_eeprom.h"
 #include <mem.h>
 #include "wl_debug.h"
+#include "wl_led.h"
 #define ESPTOUCH_INTR_PIN 0
 
 #if defined(ESPTOUCH_DEBUG_ON)

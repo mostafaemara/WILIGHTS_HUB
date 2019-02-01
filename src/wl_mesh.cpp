@@ -1,7 +1,7 @@
 #include "wl_mesh.h"
  painlessMesh mesh;
 
-
+bool flag=true;
 
 SimpleList<uint32_t> nodes;
 
@@ -16,8 +16,7 @@ String getNodeIdAsString(void){
 }
 void mesh_init(receivedCallback_t receivedCallback)
 {
-   pinMode(LED, OUTPUT);
-   digitalWrite(LED,HIGH);
+  led_start_blink(500);
   String nodeid;
   nodeid=getNodeIdAsString();
   Serial.printf(nodeid.c_str());
@@ -42,13 +41,15 @@ void mesh_update(void)
          nodes=mesh.getNodeList();
 
 if(nodes.size()!=0){
-
-digitalWrite(LED,LOW);
-
+if(flag){
+led_start_blink(2000);
+flag=false;
+}
 }else{
-
-
-digitalWrite(LED,HIGH);
+if(flag==false){
+led_start_blink(500);
+flag=true;
+}
 
 }
   }

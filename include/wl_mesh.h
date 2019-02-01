@@ -7,6 +7,7 @@
 #include"wl_eeprom.h"
 #include"wl_esptouch.h"
 #include"wl_json.h"
+#include"wl_led.h"
 #define TOPIC_APP_HANDSHAKE "base/app/handshake"
 #define TOPIC_APP_COMMAND "base/app/cmd"
 #define TOPIC_NODE_HANDSHAKE "base/node/handshake"

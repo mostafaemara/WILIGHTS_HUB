@@ -3,7 +3,7 @@ static bool esptouchdone = true;
 
 
 void handler(void){
- 
+ led_start_blink(150);
   byte state = LOW;
  state=!state;
    esptouch_start();
@@ -23,7 +23,7 @@ void ICACHE_FLASH_ATTR smartconfig_done(sc_status status, void *pdata)
     else if (status == SC_STATUS_GETTING_SSID_PSWD)
     {
            ESPTOUCH_INFO("\n ESPTOUCH: GETTING SSID & PASSWORD \n");
-
+led_start_blink(50);
         sc_type *type = reinterpret_cast<sc_type *>(pdata);
         if (*type == SC_TYPE_ESPTOUCH)
         {
@@ -49,12 +49,14 @@ void ICACHE_FLASH_ATTR smartconfig_done(sc_status status, void *pdata)
         eeprom_write_password(password);
         esptouchdone = true;
         ESPTOUCH_INFO("\n ESPTOUCH: RESTARTING \n");
+        led_stop();
         ESP.restart();
     }
     else if (status == SC_STATUS_LINK_OVER)
     {
         ESPTOUCH_INFO("\n ESPTOUCH: FINISHED & STOPPED \n");
         esptouchdone = true;
+         led_stop();
         smartconfig_stop();
     }
 }
