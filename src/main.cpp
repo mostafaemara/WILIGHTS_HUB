@@ -11,7 +11,7 @@
 #include"wl_conn_handler.h"
 
 
-
+WiFiEventHandler gotIpEventHandler, disconnectedEventHandler;
 
 
 
@@ -21,13 +21,27 @@
 
 void setup() {
     Serial.begin(115200);
-conn_handler_init();
+WLConnectionManger.meshInit();
  esptouch_init();
 
 
 
  
- 
+   gotIpEventHandler = WiFi.onStationModeGotIP([](const WiFiEventStationModeGotIP &event) {
+       
+        
+
+      WLConnectionManger.mqttBrokerStart();
+        WLConnectionManger.mqttClientInit();
+        WLConnectionManger.mqttClientConnect();
+
+        //Serial.println(WiFi.localIP());
+      mdns_start();
+    });
+
+    disconnectedEventHandler = WiFi.onStationModeDisconnected([](const WiFiEventStationModeDisconnected &event) {
+   
+    });
   
   
  
@@ -41,7 +55,7 @@ conn_handler_init();
 }
 
 void loop() {
-  mesh_update();
+WLConnectionManger.meshUpdate();
   
 }
 
