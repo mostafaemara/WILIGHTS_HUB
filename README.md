@@ -11,7 +11,7 @@ Smart Home IOT HUB TO Connect All WiLights Nodes Togather as root node using Mes
 
 
 
--: Wilight Hub Can be controlled using Wilight Android App,
+- Wilight Hub Can be controlled using Wilight Android App,
 
 
 
